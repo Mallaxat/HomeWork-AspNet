@@ -1,19 +1,19 @@
 ﻿@page
-@model HomeWork.Pages.Task_1
+@model HomeWork.Pages.Task_1Model
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title></title>
-</head>
-<body>
 <div>
-    
+    <h1>Задание1</h1>
+    <p>Создайте и запустите базовое приложение ASP.NET<br/>
+        Core, построенное на основании ASP.NET Razor Page<br/>
+        В веб-странице выведите номер текущего дня в году</p>
+    <p>Текущая дата @Model.DateNow.ToString("MM/dd/yyyy")</p>
+    <p>Текущий день в году @Model.DateOfYear</p>
 </div>
-</body>
-</html>
+<div>
+    <h1>Задание 2</h1>
+    <p>Создайте и запустите базовое приложение ASP.NET<br/>
+        Core, построенное на основании ASP.NET Razor Pages.<br/>
+        В веб-странице в зависимости от случайного значения<br/>
+        отображайте любую букву из английского алфавита.</p>
+    <p>Случайная буква @Model.Letter</p>
+</div>

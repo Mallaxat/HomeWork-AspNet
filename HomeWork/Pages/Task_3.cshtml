@@ -1,19 +1,25 @@
 ﻿@page
-@model HomeWork.Pages.Task_3
+@model HomeWork.Pages.Task_3Model
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title></title>
-</head>
-<body>
 <div>
-    
+    <h1>Задание 5</h1>
+    <p>Создайте и запустите базовое приложение ASP.NET<br/>
+        Core, построенное на основании ASP.NET Razor Pages.<br/>
+        Добавьте к базовому приложению новую страницу.<br/>
+        Страница должна отображать информацию о странах.<br/>
+        Доступ к странице по ссылке в верхнем меню страницы.<br/>
+        Используйте возможности CSS для форматирования списка.</p>
 </div>
-</body>
-</html>
+
+<ol>
+    @{
+        foreach (var country in Model.Countries)
+        {
+            <li>Страна:@country.CountryName</li>
+            <ul>
+                <li>Валюта: @country.CountryСurrency</li>
+                <li>Население: @country.CountryPeople</li>
+            </ul>
+        }
+    }
+</ol>

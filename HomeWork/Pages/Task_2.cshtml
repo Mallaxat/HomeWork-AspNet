@@ -1,19 +1,46 @@
 ﻿@page
-@model HomeWork.Pages.Task_2
+@using HomeWork.Models
+@model HomeWork.Pages.Task_2Model
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title></title>
-</head>
-<body>
 <div>
-    
+    <h1>Задание 3</h1>
+    <p>Создайте и запустите базовое приложение ASP.NET<br/>
+        Core, построенное на основании ASP.NET Razor Pages.<br/>
+        Добавьте к базовому приложению новую страницу.<br/>
+        Страница должна отображать информацию о ресторане.<br/>
+        Доступ к странице по ссылке в верхнем меню страницы.</p>
 </div>
-</body>
-</html>
+<div>
+    <h1>Задание 4</h1>
+    <p>Добавьте к заданию 2 отображение списка ресторанов.<br/>
+        Используйте возможности CSS для форматирования списка.</p>
+</div>
+<div id="CafeID">
+    <h1>Кафе</h1>
+    @*asp-for связывает с переменной*@
+    <ul id="SelectCafe">
+        @{
+            foreach (var cafe in Model.Cafes)
+            {
+                Cafe test = cafe;
+                <li>@cafe.Name</li> 
+                <ul>
+                    @{
+                        if(cafe.Street.Contains("Russia"))
+                        {
+                            <li style="color:blue">Название: @cafe.Name</li>
+                            <li style="color:blue">Улица: @cafe.Street</li>
+                        }
+                        else
+                        {
+                            <li style="color:red">Название: @cafe.Name</li>
+                            <li style="color:red">Улица: @cafe.Street</li> 
+                        }
+                    }
+                </ul>
+            }
+        }
+    </ul>
+</div>
+
+
