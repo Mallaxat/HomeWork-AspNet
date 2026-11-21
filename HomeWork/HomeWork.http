@@ -1,6 +1,13 @@
 @HomeWork_HostAddress = http://localhost:5168
 
-GET {{HomeWork_HostAddress}}/weatherforecast/
-Accept: application/json
+### 1. Терминальный Run
+GET {{HomeWork_HostAddress}}/
 
-###
+### 1. Другой URL и метод
+POST {{HomeWork_HostAddress}}/example?name=test
+
+### 2. Use и заголовок X-Processed-By
+GET {{HomeWork_HostAddress}}/use
+
+### 3. Middleware
+GET {{HomeWork_HostAddress}}/middleware
