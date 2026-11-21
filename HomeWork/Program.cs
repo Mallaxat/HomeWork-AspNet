@@ -11,6 +11,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseAuthorization();
+/*TASK_1
 //context - по сути условие
 //apiBranch-что делаем
 
@@ -32,4 +33,8 @@ app.MapWhen( context =>context.Request.Query["debug"]=="true",
         apiBranch.Run(context =>context.Response.WriteAsync("QUERY DEBUG TRUE"));
     });
 app.Run(context=>context.Response.WriteAsync("\nHai basa"));
+*/
+
+
+
 app.Run();
