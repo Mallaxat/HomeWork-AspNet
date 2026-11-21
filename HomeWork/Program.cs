@@ -11,8 +11,28 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseAuthorization();
+//context - по сути условие
+//apiBranch-что делаем
 
-app.MapControllers();
-app.MapRazorPages();
-
+app.UseWhen(
+    context => context.Request.Path.StartsWithSegments("/api"),
+apiBranch =>
+{
+    apiBranch.Use(async (context, next) =>
+    {
+        context.Response.ContentType = "text/plain";
+        context.Response.Headers["X-BODY"] = "UseWhen";
+        context.Response.WriteAsync("Headrs API");
+        await next();
+    });
+});
+app.MapWhen( context =>context.Request.Query["debug"]==true,
+    apiBranch =>
+    {
+        apiBranch.Run(context =>context.Response.WriteAsync("QUERY DEBUG TRUE"));
+    });
+    
+    
+    
+app.Run(context=>context.Response.WriteAsync("\nHai"));
 app.Run();
