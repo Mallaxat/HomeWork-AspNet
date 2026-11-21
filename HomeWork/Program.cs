@@ -26,13 +26,10 @@ apiBranch =>
         await next();
     });
 });
-app.MapWhen( context =>context.Request.Query["debug"]==true,
+app.MapWhen( context =>context.Request.Query["debug"]=="true",
     apiBranch =>
     {
         apiBranch.Run(context =>context.Response.WriteAsync("QUERY DEBUG TRUE"));
     });
-    
-    
-    
-app.Run(context=>context.Response.WriteAsync("\nHai"));
+app.Run(context=>context.Response.WriteAsync("\nHai basa"));
 app.Run();
