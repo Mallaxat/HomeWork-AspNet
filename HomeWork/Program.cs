@@ -11,6 +11,9 @@ builder.Services.AddSingleton<ISingID, SingID>();
 builder.Services.AddScoped<IScopedId, ScopedID>();
 builder.Services.AddTransient<ITransientID, TransientID>();
 
+builder.Services.AddKeyedSingleton<IReportService, ReportRelise1>("Rel1");
+builder.Services.AddKeyedSingleton<IReportService, ReportRelise2>("Rel2");
+
 var app = builder.Build();
 
 
@@ -80,5 +83,26 @@ app.Map("/", async (context) =>
                                       $"\nId TRANSIENT: {servTransient.GetID().ToString()}");
 });
 */
+
+//Task_3
+app.Map("/start", appBuilder =>
+{
+    appBuilder.Run(async (context) =>
+    {
+        string type = context.Request.Query["type"].ToString();
+        switch (type)
+        {
+            case "rel1":
+            case "Rel1":
+                await context.Response.WriteAsync($"Relise:{ context.RequestServices.GetKeyedService<IReportService>("Rel1").PrintReport()}");
+                break;
+            case "rel2":
+            case "Rel2":
+                
+                break;
+        }
+    });
+});
+
 
 app.Run();
