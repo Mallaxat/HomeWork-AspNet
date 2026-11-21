@@ -2,5 +2,8 @@
 
 public interface ITransientID
 {
-    
+    public Guid GetID()
+    {
+        return Guid.NewGuid();
+    }
 }

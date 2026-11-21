@@ -1,6 +1,6 @@
 ﻿namespace HomeWork.Model;
 
-public interface IGetID
+public interface ISingID
 {
-    
+    Guid GetID();
 }

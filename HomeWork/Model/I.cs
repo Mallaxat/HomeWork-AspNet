@@ -1,6 +1,10 @@
 ﻿namespace HomeWork.Model;
 
-public interface I
+public interface IScopedId
 {
+    public Guid GetID()
+    {
+        return Guid.NewGuid();
+    }
     
 }

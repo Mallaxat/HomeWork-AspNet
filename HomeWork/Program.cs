@@ -1,9 +1,15 @@
+using HomeWork.Model;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddRazorPages();
+//Регистрируем связку интерфейс + модель
+builder.Services.AddSingleton<ISingID, SingID>();
+builder.Services.AddScoped<IScopedId, ScopedID>();
+builder.Services.AddTransient<ITransientID, TransientID>();
 
 var app = builder.Build();
 
@@ -35,6 +41,44 @@ app.MapWhen( context =>context.Request.Query["debug"]=="true",
 app.Run(context=>context.Response.WriteAsync("\nHai basa"));
 */
 
+/*Task_2
+app.MapWhen(context => context.Request.Path.StartsWithSegments("/sing"),
+    async (appBuilder) =>
+    {
+        appBuilder.Run(async (context) =>
+        {
+            var serv = context.RequestServices.GetRequiredService<ISingID>();
+            await context.Response.WriteAsync($"Ex Id SINGLETON: {serv.GetID().ToString()}");
+        });
+    });
+app.MapWhen(context => context.Request.Path.StartsWithSegments("/scoped"),
+    async (appBuilder) =>
+    {
+        appBuilder.Run(async (context) =>
+        {
+            var serv = context.RequestServices.GetRequiredService<IScopedId>();
+            await context.Response.WriteAsync($"Ex Id SCORED: {serv.GetID().ToString()}");
+        });
+    });
+app.MapWhen(context => context.Request.Path.StartsWithSegments("/trans"),
+    async (appBuilder) =>
+    {
+        appBuilder.Run(async (context) =>
+        {
+            var serv = context.RequestServices.GetRequiredService<ITransientID>();
+            await context.Response.WriteAsync($"Ex Id TRANSIENT: {serv.GetID().ToString()}");
+        });
+    });
 
+app.Map("/", async (context) =>
+{
+    var servScoped = context.RequestServices.GetRequiredService<IScopedId>();
+    var servSing = context.RequestServices.GetRequiredService<ISingID>();
+    var servTransient = context.RequestServices.GetRequiredService<ITransientID>();
+    await context.Response.WriteAsync($"Id SINGLETON: {servSing.GetID().ToString()}" +
+                                      $"\nId SCOPED: {servScoped.GetID().ToString()}" +
+                                      $"\nId TRANSIENT: {servTransient.GetID().ToString()}");
+});
+*/
 
 app.Run();
