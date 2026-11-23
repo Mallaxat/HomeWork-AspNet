@@ -20,6 +20,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseAuthorization();
+
 /*TASK_1
 //context - по сути условие
 //apiBranch-что делаем
@@ -87,6 +88,14 @@ app.Map("/", async (context) =>
 //Task_3
 app.Map("/start", appBuilder =>
 {
+    appBuilder.UseWhen(
+        context=>context.Request.Query["type"].ToString().Equals("rel2",StringComparison.OrdinalIgnoreCase),
+        appBuilder =>
+        {
+            //Если реализация 2 запускаем медивер который запустит 2 реализацию
+            appBuilder.UseMiddleware<ReportMiddleware>();
+        }
+        );
     appBuilder.Run(async (context) =>
     {
         string type = context.Request.Query["type"].ToString();
@@ -94,12 +103,9 @@ app.Map("/start", appBuilder =>
         {
             case "rel1":
             case "Rel1":
-                await context.Response.WriteAsync($"Relise:{ context.RequestServices.GetKeyedService<IReportService>("Rel1").PrintReport()}");
+                await context.Response.WriteAsync($"Relise:{ context.RequestServices.GetRequiredKeyedService<IReportService>("Rel1").PrintReport()}");
                 break;
-            case "rel2":
-            case "Rel2":
-                
-                break;
+            
         }
     });
 });
